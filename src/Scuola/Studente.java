@@ -84,7 +84,7 @@ public class Studente extends Persona implements Certificato {
     }
 
     private void generaMatricola() {
-        int ultimeDueCifre = this.annoNascita % 100;
+        int ultimeDueCifre = getAnnoNascita() % 100;
         this.matricola = String.format("%02d%03d%c", ultimeDueCifre, progressivoMatricola, sezioneFrequentata);
         progressivoMatricola = (progressivoMatricola + 1) % 1000;
     }
