@@ -17,11 +17,9 @@ public class Docente extends Persona {
     }
 
     public void setAnnoNascita(int annoNascita) {
-    	if(annoNascita < 1965 || annoNascita > 1995)
-    	{
-    		System.out.println("Impossibile inserire l'età");
-    		
-    	}
+    	if (annoNascita < 1965 || annoNascita > 1995) {
+    		throw new IllegalArgumentException("Anno di nascita non valido, non posso inserirlo");
+        }
     	else {
     		this.annoNascita = annoNascita;
     		

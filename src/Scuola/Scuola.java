@@ -28,26 +28,20 @@ public class Scuola {
             try {
                 scelta = inputNumeri.nextInt();
                 switch (scelta) {
-                    case 1:
-                        System.out.print("Nome studente: ");
-                        String nomeS = inputTesti.nextLine();
-                        System.out.print("Cognome studente: ");
-                        String cognomeS = inputTesti.nextLine();
+                case 1:
+                    System.out.print("Nome studente: ");
+                    String nomeS = inputTesti.nextLine();
+                    System.out.print("Cognome studente: ");
+                    String cognomeS = inputTesti.nextLine();
+                    
+                    int annoS = 0;
+                    System.out.println("N.B: NON MODIFICABILE! Studenti ammessi nati tra il 2016 e il 2023");
+                    System.out.print("Anno di nascita: ");
+                    try {
+                        annoS = inputNumeri.nextInt();
                         
-                        int annoS = 0;
-                        boolean ancoraAnnoS = true;
-                        while (ancoraAnnoS) {
-                            try {
-                            	System.out.println("N.B : Le date di nascita non sono modificabili!, Studenti fra 2016 e 2023");
-                                System.out.println("Anno di nascita: ");
 
-                                annoS = inputNumeri.nextInt();
-                                ancoraAnnoS = false;
-                            } catch (InputMismatchException e) {
-                                System.out.println("Formato non valido! Reinserisci numero:");
-                                inputNumeri.next();
-                            }
-                        }
+                        Studente nuovoStudente = new Studente(nomeS, cognomeS, annoS, 1, 'A'); 
 
                         int classeS = 0;
                         boolean ancoraClasseS = true;
@@ -61,72 +55,65 @@ public class Scuola {
                                 inputNumeri.next();
                             }
                         }
+                        nuovoStudente.setClasse(classeS);
 
                         System.out.print("Sezione (A-D): ");
                         char sezioneS = inputTesti.nextLine().charAt(0);
-
-                        Studente nuovoStudente = new Studente(nomeS, cognomeS, annoS, classeS, sezioneS);
+                        nuovoStudente.setSezioneFrequentata(sezioneS); 
                         
-                        if (nuovoStudente.getAnnoNascita() == 0) {
-                            System.out.println("Inserimento annullato. Lo studente NON è stato aggiunto.");
-                        } else {
-                            System.out.print("Vuoi inserire il certificato medico? (S/N): ");
-                            String rispS = inputTesti.nextLine();
-                            if (rispS.equalsIgnoreCase("S")) {
-                                int annoC = 0;
-                                boolean ancoraAnnoC = true;
-                                while (ancoraAnnoC) {
-                                    try {
-                                        System.out.print("Anno rilascio certificato: ");
-                                        annoC = inputNumeri.nextInt();
-                                        ancoraAnnoC = false;
-                                    } catch (InputMismatchException e) {
-                                        System.out.println("Formato non valido! Reinserisci numero:");
-                                        inputNumeri.next();
-                                    }
-                                }
-                                System.out.print("Cognome medico: ");
-                                String medicoC = inputTesti.nextLine();
-                                nuovoStudente.inserisciCertificato(annoC, medicoC);
-                            }
-                            studenti.add(nuovoStudente);
-                            System.out.println("Studente registrato con successo.");
+                        System.out.print("Vuoi inserire il certificato medico? (S/N): ");
+                        String rispS = inputTesti.nextLine();
+                        if (rispS.equalsIgnoreCase("S")) {
+                            System.out.print("Anno rilascio certificato (Massimo due anni fà): ");
+                            int annoC = inputNumeri.nextInt();
+                            System.out.print("Cognome medico: ");
+                            String medicoC = inputTesti.nextLine();
+                            nuovoStudente.inserisciCertificato(annoC, medicoC);
                         }
-                        break;
 
-                    case 2:
-                        System.out.print("Nome docente: ");
-                        String nomeD = inputTesti.nextLine();
-                        System.out.print("Cognome docente: ");
-                        String cognomeD = inputTesti.nextLine();
+                        studenti.add(nuovoStudente);
+                        System.out.println("Studente registrato con successo.");
+
+                    } catch (InputMismatchException e) {
+                        System.out.println("Formato anno non valido! Operazione annullata.");
+                        inputNumeri.next();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage()); 
+                        System.out.println("Inserimento annullato. Lo studente NON è stato aggiunto.");
+                    }
+                    break;
+                case 2:
+                    System.out.print("Nome docente: ");
+                    String nomeD = inputTesti.nextLine();
+                    System.out.print("Cognome docente: ");
+                    String cognomeD = inputTesti.nextLine();
+                    
+                    System.out.println("N.B : Le date di nascita NON SONO MODIFICABILI!, Range Accettato fra 1965 e 1995");
+                    System.out.print("Anno di nascita: ");
+                    
+                    try {
+                        int annoD = inputNumeri.nextInt();
                         
-                        int annoD = 0;
-                        boolean ancoraAnnoD = true;
-                        while (ancoraAnnoD) {
-                            try {
-                            	System.out.println("N.B : Le date di nascita non sono modificabili!, Docenti fra 1965 e 1995");
-                                System.out.println("Anno di nascita: ");
-                                annoD = inputNumeri.nextInt();
-                                ancoraAnnoD = false;
-                            } catch (InputMismatchException e) {
-                                System.out.println("Formato non valido! Reinserisci numero:");
-                                inputNumeri.next();
-                            }
-                        }
-                        System.out.println("Materie disponibili [Italiano,Matematica,Inglese,Storia,Scienze]");
+                        Docente nuovoDocente = new Docente(nomeD, cognomeD, annoD, "Italiano");
+                        
+                        System.out.println("Materie disponibili [Italiano, Matematica, Inglese, Storia, Scienze]");
                         System.out.print("Materia insegnata: ");
                         String materiaD = inputTesti.nextLine();
-
-                        Docente nuovoDocente = new Docente(nomeD, cognomeD, annoD, materiaD);
                         
-                        if (nuovoDocente.getAnnoNascita() == 0) {
-                            System.out.println("Inserimento annullato. Il docente NON è stato aggiunto.");
-                        } else {
-                            docenti.add(nuovoDocente);
-                            System.out.println("Docente registrato con successo.");
-                        }
-                        break;
-
+                        nuovoDocente.setMateriaInsegnata(materiaD);
+                        
+                        docenti.add(nuovoDocente);
+                        System.out.println("Docente registrato con successo.");
+                        
+                    } catch (InputMismatchException e) {
+                        System.out.println("Formato anno non valido! Operazione annullata.");
+                        inputNumeri.next(); 
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("Inserimento annullato. Il docente NON è stato aggiunto.");
+                    }
+                    break;
+                    
                     case 3:
                         System.out.print("Nome socio: ");
                         String nomeClub = inputTesti.nextLine();

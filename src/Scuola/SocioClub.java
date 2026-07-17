@@ -28,7 +28,7 @@ public class SocioClub implements Certificato {
         boolean ancora = true;
         do {
             try {
-                if (anno < 2020 || anno > 2026) {
+                if (anno < 2024 || anno > 2026) {
                     System.out.println("Anno certificato non valido. Reinserisci anno:");
                     anno = inputNumeri.nextInt();
                 } else if (medico == null || medico.trim().isEmpty()) {
