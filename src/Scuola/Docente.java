@@ -9,7 +9,6 @@ public class Docente extends Persona {
         "Italiano", "Matematica", "Scienze", "Storia", "Inglese" 
     };
     private Scanner inputTesti = new Scanner(System.in);
-    private Scanner inputNumeri = new Scanner(System.in);
 
     public Docente(String nome, String cognome, int annoNascita, String materiaInsegnata) {
         super(nome, cognome);
